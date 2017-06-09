@@ -7,12 +7,10 @@ Physical GPIO pin#7 turns off the system when you press switch#1 for 3+ seconds.
 
 While the system is turned off, if the user presses the switch#2 which is connected to pin#5, RasPi gets a reboot signal and the system turns on.
 
-EagleCad schematic and board layouts are available below:
+EagleCad [schematic](/PiShutdownButton.sch) and [board](/PiShutdownButton.brd) layouts are available for download:
 
-[Schematic](/PiShutdownButton.sch) >>
 ![Schematic](/RasPi_Shutdown_Schematic.png "Schematic")
 
-[Board](/PiShutdownButton.brd) >>
 ![Board](/RasPi_Shutdown_Board.png "Board")
 
 The board is then processed using CNC isolation routing; gcode created using php-gcode ULP and then the board is prepared on CNC machine. The pin headers have been soldered parallel to the board to help easier connection to RasPi board.
@@ -34,18 +32,6 @@ Add the python script to the /root folder and paste in the following content.
 > sudo touch /root/pi_shutdown.py
 > sudo nano /root/pi_shutdown.py
 ```
-
-Add the script to root user's crontab so that it will run at each reboot.
-
-```
-> sudo crontab -e
-```
-Add the following line to the bottom of the file
-```
-@reboot sudo /usr/bin/python3 /root/pi_shutdown.py  > /root/pi_shutdown.log 2>&1
-```
-
-
 The full code for the **pi_shutdown.py** script.
 ```python
 
@@ -117,6 +103,19 @@ except KeyboardInterrupt: # trap a CTRL+C keyboard interrupt
 
 
 ```
+
+Add the script to root user's crontab so that it will run at each reboot.
+
+```
+> sudo crontab -e
+```
+Add the following line to the bottom of the file
+```
+@reboot sudo /usr/bin/python3 /root/pi_shutdown.py  > /root/pi_shutdown.log 2>&1
+```
+
+
+
 
 
 Inspired from
